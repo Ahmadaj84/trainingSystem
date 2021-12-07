@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+  <table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">اسم الطالب</th>
+      <th scope="col">القسم</th>
+      <th scope="col">المعدل التراكمي</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {%for u in users %}
+  
+    <tr>
+      
+      <td>{{u.username}}</td>
+      <td>{{u.section}}</td>
+      <td>{{u.gpa}}</td>
+    </tr>
+    {% endfor%}
+
+  </tbody>
+</table>
+
+
+</div>
+{% endblock content %}

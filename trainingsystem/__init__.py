@@ -9,7 +9,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
-from flaskblog import routes
+from trainingsystem.main.routes import main
+from trainingsystem.users.routes import users
+from trainingsystem.institute.routes import institutes
+app.register_blueprint(main)
+app.register_blueprint(users)
+app.register_blueprint(institutes)
