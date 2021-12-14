@@ -7,6 +7,8 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+sections =['علوم حاسب','تقنيةالمعلومات','نظم معلومات']
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,16 +33,37 @@ class User(db.Model, UserMixin):
     #posts = db.relationship('Post', backref='author', lazy=True)
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
+    def getSection(self):
+        if self.section is not None:
+            return sections[self.section]
+        return None
+    def getGpa(self):
+        if self.gpa is not None:
+            return '{0:.3g}'.format(self.gpa)
+        else:
+            return 0
+    def getInstituteName(self):
+        if self.type == 1 :
+             reg = Register.query.filter_by(user_id=self.id).first()
+             if reg is not None:
+                 inst = Institute.query.filter_by(id =reg.inst_id ).first()
+                 return inst.instName
+             else:
+                return None
+
+
 
 class Institute(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     instName = db.Column(db.String(200))
-
     studenMaxNum = db.Column(db.Integer)
     available = db.Column(db.Integer , default=0) #flag once the number of the registered student equal the studenMaxNum it turn to 1
+    registered = db.relationship('Register' , backref = 'registered', lazy=True)
+
     #users = db.relationship("User",back_populates = "institute")
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     #user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=True)
+
 
     def __repr__ (self):
         return f"Institute('{self.instName}', '{self.supervisor.username}')"
@@ -49,6 +72,7 @@ class Register(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     sem_id = db.Column(db.Integer, db.ForeignKey('semester.id'), nullable=False)
+    inst_id = db.Column(db.Integer, db.ForeignKey('institute.id'), nullable=False)
     def __repr__ (self):
         return f"Register('{self.user_id}', '{self.sem_id}')"
 

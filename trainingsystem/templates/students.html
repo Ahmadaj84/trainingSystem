@@ -4,21 +4,26 @@
   <table class="table">
   <thead>
     <tr>
-      
+
       <th scope="col">اسم الطالب</th>
       <th scope="col">القسم</th>
       <th scope="col">المعدل التراكمي</th>
+      <th scope="col">جهة التدريب</th>
+
     </tr>
   </thead>
   <tbody>
-    
-    {%for u in users %}
-  
+
+    {% for u in users %}
+
+
     <tr>
-      
+
       <td>{{u.username}}</td>
-      <td>{{u.section}}</td>
-      <td>{{u.gpa}}</td>
+      <td>{{u.getSection()}}</td>
+      <td>{{u.getGpa()}}</td>
+      <td>{{u.getInstituteName()}}</td>
+
     </tr>
     {% endfor%}
 

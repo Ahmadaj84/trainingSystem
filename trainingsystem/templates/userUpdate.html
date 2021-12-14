@@ -4,7 +4,7 @@
 <form  method="post" action="">
     {{ form.hidden_tag() }}
     <fieldset class="form-group">
-    <legend class="border-bottom mb-4">تحديث البيانات و تحديد الإختيارات</legend>
+    <legend class="border-bottom mb-4">تحديث البيانات</legend>
     <div class="form-group">
         {{ form.section.label(class="form-control-label") }}
         {% if form.section.errors %}
@@ -44,45 +44,7 @@
             {{ form.gpa(class="form-control form-control-lg") }}
         {% endif %}
     </div>
-    <div class="form-group">
-        {{ form.option1.label(class="form-control-label") }}
-        {% if form.option1.errors %}
-            {{ form.option1(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-                {% for error in form.option1.errors %}
-                    <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-        {% else %}
-            {{ form.option1(class="form-control form-control-lg") }}
-        {% endif %}
-    </div>
-    <div class="form-group">
-        {{ form.option2.label(class="form-control-label") }}
-        {% if form.option2.errors %}
-            {{ form.option2(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-                {% for error in form.option2.errors %}
-                    <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-        {% else %}
-            {{ form.option2(class="form-control form-control-lg") }}
-        {% endif %}
-    </div>
-    <div class="form-group">
-        {{ form.option3.label(class="form-control-label") }}
-        {% if form.option3.errors %}
-            {{ form.option3(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-                {% for error in form.option3.errors %}
-                    <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-        {% else %}
-            {{ form.option3(class="form-control form-control-lg") }}
-        {% endif %}
-    </div>
+
     </fieldset>
     <div class="form-group">
         {{ form.submit(class="btn btn-outline-info") }}

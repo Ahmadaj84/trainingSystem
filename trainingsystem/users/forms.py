@@ -36,7 +36,11 @@ class StudintUpdate(FlaskForm ):
     """docstring for StudintOption. so that a student can register in three diffrent institute"""
     section =  SelectField('القسم' ,validators=[DataRequired(message= 'يجيب تحديد القسم')])
     passHours = DecimalField('الساعات المنجزة' ,validators=[DataRequired(message= 'يجيب تحديد عدد الساعات')])
-    gpa = DecimalField('المعدل التراكمي' ,validators=[DataRequired(message= 'حدد المعدل التراكمي الحالي')])
+    gpa = DecimalField('المعدل التراكمي'  ,validators=[DataRequired(message= 'حدد المعدل التراكمي الحالي')])
+    submit = SubmitField('تسجيل')
+
+class StudintChoise(FlaskForm ):
+    """docstring for StudintOption. so that a student can register in three diffrent institute"""
     option1 = SelectField('الإختيار الأول'  ,validators=[DataRequired(message= 'يجيب إدخال رغبات جهات التدريب')])
     option2 = SelectField('الإختيار الثاني',validators=[DataRequired(message= 'يجيب إدخال رغبات جهات التدريب')])
     option3 = SelectField('الإختيار الثالث' ,validators=[DataRequired(message= 'يجيب إدخال رغبات جهات التدريب')])

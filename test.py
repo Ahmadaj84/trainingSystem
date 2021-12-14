@@ -18,6 +18,9 @@ sheet_list = wb.sheetnames
 #loop over each sheet
 
 db.create_all()
+s = Semester(year = 2021 , name = "Summer" )
+db.session.add(s)
+db.session.commit()
 for sheet in sheet_list:
     ws = wb[sheet]
     for row in ws.iter_rows(min_row=2):
