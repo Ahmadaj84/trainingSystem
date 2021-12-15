@@ -43,13 +43,12 @@ class User(db.Model, UserMixin):
         else:
             return 0
     def getInstituteName(self):
-        if self.type == 1 :
+        if self.type == 1 :#must be a student to get the inst name
              reg = Register.query.filter_by(user_id=self.id).first()
-             if reg is not None:
-                 inst = Institute.query.filter_by(id =reg.inst_id ).first()
-                 return inst.instName
+             if reg is not None:# check if the student has registerd an institute
+                 return Institute.query.filter_by(id =reg.inst_id ).first().instName
              else:
-                return None
+                return "لم يتم تسجيل جهة تدريب"
 
 
 
