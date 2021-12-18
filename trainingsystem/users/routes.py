@@ -1,4 +1,5 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint ,make_response
+import pdfkit
 from flask_login import login_user, current_user, logout_user, login_required
 from trainingsystem import db, bcrypt,main
 from trainingsystem.models import User,Institute,Register
@@ -88,3 +89,15 @@ def students():
         return render_template('students.html',title = 'قائمة الطلاب المتقدمين'  , users = users)
     else:
         return redirect(url_for('main.about'))
+
+
+@users.route("/letter" , methods=['GET'])
+@login_required
+def letter():
+    users = User.query.filter_by(type=1)
+    html = render_template('students.html'  , users = users)
+    pdf = pdfkit.from_string(html, False)
+    response = make_response(pdf)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers["Content-Disposition"] = "inline; filename=output.pdf"
+    return response
