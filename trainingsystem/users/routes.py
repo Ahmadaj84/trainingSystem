@@ -95,7 +95,7 @@ def students():
 @login_required
 def letter():
     users = User.query.filter_by(type=1)
-    html = render_template('students.html'  , users = users)
+    html = render_template('letter.html' )
     pdf = pdfkit.from_string(html, False)
     response = make_response(pdf)
     response.headers["Content-Type"] = "application/pdf"
