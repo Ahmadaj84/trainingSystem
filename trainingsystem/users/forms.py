@@ -26,11 +26,11 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email is taken. Please choose a different one.')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',
+    email = StringField('البريد الإلكتروني',
                         validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember = BooleanField('Remember Me')
-    submit = SubmitField('Login')
+    password = PasswordField('كلمة المرور', validators=[DataRequired()])
+    remember = BooleanField('تذكرني')
+    submit = SubmitField('تسجيل الدخول')
 
 class StudintUpdate(FlaskForm ):
     """docstring for StudintOption. so that a student can register in three diffrent institute"""
