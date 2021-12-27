@@ -2,12 +2,13 @@ from datetime import datetime
 from trainingsystem import db, login_manager
 from flask_login import UserMixin
 
+sections =['علوم حاسب','تقنيةالمعلومات','نظم معلومات']
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-sections =['علوم حاسب','تقنيةالمعلومات','نظم معلومات']
+
 
 
 class User(db.Model, UserMixin):

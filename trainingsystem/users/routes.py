@@ -91,12 +91,14 @@ def students():
         return redirect(url_for('main.about'))
 
 
-@users.route("/letter" , methods=['GET'])
+@users.route("/letter/<int:user_id>" , methods=['GET'])
 @login_required
-def letter():
-    users = User.query.filter_by(type=1)
-    html = render_template('letter.html' )
-    pdf = pdfkit.from_string(html, False)
+def letter(user_id):
+    #the next line need to be deleted in server only for windows use
+    config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+    user = User.query.filter_by(id=user_id).first()
+    html = render_template('letter.html',user = user )
+    pdf = pdfkit.from_string(html, False , configuration=config)
     response = make_response(pdf)
     response.headers["Content-Type"] = "application/pdf"
     response.headers["Content-Disposition"] = "inline; filename=output.pdf"
