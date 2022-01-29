@@ -4,6 +4,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from trainingsystem import db, bcrypt,main
 from trainingsystem.models import User,Institute,Register
 from trainingsystem.users.forms import RegistrationForm, LoginForm ,RegistrationForm ,StudintUpdate,StudintChoise
+from datetime import date
 
 
 users = Blueprint('users', __name__)
@@ -56,7 +57,6 @@ def userUpdate():
         db.session.commit()
         return redirect(url_for('users.studentChoice'))
     else:
-
         form.gpa.data = current_user.gpa if current_user.gpa != None else 0
         form.passHours.data = current_user.passHours if current_user.passHours != None else 0
         return render_template('userUpdate.html',  form = form)
@@ -67,7 +67,6 @@ def studentChoice():
         form = StudintChoise()
         institute = Institute.query.filter_by(available=0)
         form.option1.choices = form.option2.choices = form.option3.choices = [(row.id,row.instName) for row in institute ]
-
         if form.validate_on_submit():
             current_user.option1 = form.option1.data
             current_user.option2 = form.option2.data
@@ -94,10 +93,12 @@ def students():
 @users.route("/letter/<int:user_id>" , methods=['GET'])
 @login_required
 def letter(user_id):
+
+    today = date.today().strftime("%d/%m/%Y")
     #the next line need to be deleted in server only for windows use
     config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
     user = User.query.filter_by(id=user_id).first()
-    html = render_template('letter.html',user = user )
+    html = render_template('letter.html',user = user ,today = today )
     pdf = pdfkit.from_string(html, False , configuration=config)
     response = make_response(pdf)
     response.headers["Content-Type"] = "application/pdf"

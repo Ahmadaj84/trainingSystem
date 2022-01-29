@@ -7,23 +7,23 @@ from trainingsystem.models import User
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username',
+    username = StringField('إسم المستخدم',
                            validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email',
+    email = StringField('البريد الإلكتروني',
                         validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password',
+    password = PasswordField('كلمة السر', validators=[DataRequired()])
+    confirm_password = PasswordField('تأكيد كلمة السر',
                                      validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('تسجيل')
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
-            raise ValidationError('That username is taken. Please choose a different one.')
+            raise ValidationError('سبق إستخدام إسم المستخدم هذا , نرجو إختيار إسم آخر')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
-            raise ValidationError('That email is taken. Please choose a different one.')
+            raise ValidationError('سبق إستخدام البريدالإلكتروني هذا!')
 
 class LoginForm(FlaskForm):
     email = StringField('البريد الإلكتروني',
